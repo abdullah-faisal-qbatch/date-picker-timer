@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./../App.css";
+import { min } from "lodash";
 
 const Home = () => {
   const [date, setDate] = useState("");
@@ -10,18 +11,34 @@ const Home = () => {
 
   //   useEffect(() => {
   //   }, []);
+  function toSeconds(hours, minutes, seconds) {
+    return hours * 3600 + minutes * 60 + seconds;
+  }
+  function convertSecondsToTime(seconds) {
+    const hoursFinal = Math.floor(seconds / 3600);
+    const minutesFinal = Math.floor((seconds % 3600) / 60);
+    const remainingSecondsFinal = seconds % 60;
+
+    return {
+      hours: hoursFinal,
+      minutes: minutesFinal,
+      seconds: remainingSecondsFinal,
+    };
+  }
 
   const today = new Date().toISOString().split("T")[0];
-  const hours = new Date().getHours();
-  const minutes = new Date().getMinutes();
-  const second = new Date().getSeconds();
-  console.log(hours);
-  console.log(minutes);
-  console.log(second);
-  console.log(hours);
+  const hours = 24 - new Date().getHours();
+  const minutes = 60 - new Date().getMinutes();
+  const second = 60 - new Date().getSeconds();
+  console.log("Hours: ", hours);
+  console.log("Minutes: ", minutes);
+  console.log("Seconds: ", second);
+  console.log("In seconds: ", toSeconds(hours, minutes, second));
+  let numberOfDays;
+
+  // console.log(hours);
   //   console.log("time: ", time);
 
-  let numberOfDays;
   //   const timerInterval = setInterval(() => {
   //     setSeconds((prevSeconds) => prevSeconds - 1);
   //     //   console.log(seconds);
@@ -46,7 +63,7 @@ const Home = () => {
     console.log("Time diff: ", timeDifference);
     numberOfDays =
       timeDifference[0] * 365 + timeDifference[1] * 30 + timeDifference[2] * 1;
-    // console.log(numberOfDays);
+    console.log("Total days: ", numberOfDays);
     numberOfDays--;
     // setSeconds(8640);
     // setStartTimer(true);
@@ -66,6 +83,8 @@ const Home = () => {
               name="dateInput"
               min={today}
               onChange={handleDateChange}
+              // onSelect={handleDateChange}
+              // onLoadedData={handleDateChange}
             ></input>
           </>
         )}
@@ -81,11 +100,3 @@ const Home = () => {
 };
 
 export default Home;
-
-// echo "# date-picker-timer" >> README.md
-// git init
-// git add README.md
-// git commit -m "first commit"
-// git branch -M main
-// git remote add origin https://github.com/abdullah-faisal-qbatch/date-picker-timer.git
-// git push -u origin main

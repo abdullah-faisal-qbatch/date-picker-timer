@@ -1,9 +1,12 @@
 import Posts from "./components/Posts";
+import Home from "./components/Timer";
+import Timer from "./components/Timer";
 
 function App() {
   return (
     <>
-      <Posts></Posts>
+      <Timer></Timer>
+      {/* <Posts></Posts> */}
     </>
   );
 }
